@@ -9,13 +9,13 @@
 // Вернуть значение свойства объекта по имени key.
 // Имя свойства приходит в переменной, поэтому используйте динамический доступ.
 function getProperty(object, key) {
-  // TODO
+  return object[key];
 }
 
 // 2. Количество свойств
 // Вернуть количество собственных перечисляемых свойств объекта.
 function countProperties(object) {
-  // TODO
+  return Object.keys(object).length;
 }
 
 // 3. Сумма числовых свойств
@@ -23,7 +23,15 @@ function countProperties(object) {
 // для которых typeof value === "number".
 // В тестах используются обычные конечные числа.
 function sumNumericProperties(object) {
-  // TODO
+  let sum = 0;
+
+  for (const key of Object.keys(object)) {
+    if (typeof object[key] === "number") {
+      sum += object[key];
+    }
+  }
+
+  return sum;
 }
 
 // 4. Объект товара с методом
@@ -31,7 +39,15 @@ function sumNumericProperties(object) {
 // и методом getTotal(), который возвращает price * quantity.
 // Метод должен использовать текущие свойства объекта через this.
 function createProduct(name, price, quantity) {
-  // TODO
+  return {
+    name: name,
+    price: price,
+    quantity: quantity,
+
+    getTotal() {
+      return this.price * this.quantity;
+    },
+  };
 }
 
 // 5. Средний балл студента
@@ -40,7 +56,17 @@ function createProduct(name, price, quantity) {
 // Вернуть среднее арифметическое оценок.
 // Если grades пустой — вернуть 0.
 function calculateAverageGrade(student) {
-  // TODO
+   if (student.grades.length === 0) {
+    return 0;
+  }
+
+  let sum = 0;
+
+  for (const grade of student.grades) {
+    sum += grade;
+  }
+
+  return sum / student.grades.length;
 }
 
 // 6. Самый дорогой товар
@@ -49,9 +75,20 @@ function calculateAverageGrade(student) {
 // Если массив пустой — вернуть null.
 // Если максимальная цена встречается несколько раз — вернуть первый такой товар.
 function findMostExpensiveProduct(products) {
-  // TODO
-}
+  if (products.length === 0) {
+    return null;
+  }
 
+  let mostExpensive = products[0];
+
+  for (let i = 1; i < products.length; i++) {
+    if (products[i].price > mostExpensive.price) {
+      mostExpensive = products[i];
+    }
+  }
+
+  return mostExpensive;
+}
 module.exports = {
   getProperty,
   countProperties,
